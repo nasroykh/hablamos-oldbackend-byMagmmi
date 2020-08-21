@@ -17,7 +17,7 @@ router.post('/SignUp', upload.single('profilePicture'), async function (req, res
 
 
 //  We store returned values from the login function
-    const { status, reason, details, message } = await signUp( req.body.profile, req.body.account )
+    const { status, reason, details, message } = await signUp( req.body.profile, req.body.account );
     
 //  We send those values to the client IF their is not error throwen during the logIn() process
     res.send({ 
@@ -33,7 +33,7 @@ router.post('/uploadProfilePicture', upload.single('profilePicture'), async func
     console.log(req.file);
     console.log(req.body.profileID);
 //  We store returned values from the login function
-    const { status, reason, details, message } = await uploadProfilePicture(req.body.profileID, req.file.buffer)
+    const { status, reason, details, message } = await uploadProfilePicture(req.body.profileID, req.file.buffer);
     
 //  We send those values to the client IF their is not error throwen during the logIn() process
     res.send({ 
