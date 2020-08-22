@@ -50,8 +50,7 @@ const sendEmail = async () => {
  * Main function of inscription
  */
 const signUp = async ( profileInformation, accountInformation ) => {
-  console.log(accountInformation);
-  console.log(profileInformation);
+
     try {
         if (profileInformation.username === "" || profileInformation.username === undefined) {
           const emailIndex = accountInformation.email.search('@')

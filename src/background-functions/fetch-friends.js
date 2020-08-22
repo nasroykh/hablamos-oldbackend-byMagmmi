@@ -2,6 +2,30 @@
 const Account = require("../models/Account")
 const Profile = require("../models/Profile")
 
+
+
+const getFriendRequestInProccess = async ( myProfileID ) => {
+    try {
+        const profile = await Profile.findById(myProfileID);
+        console.log(profile);
+        const profilesID = profile.receivedInvitation
+        const profiles = new Array()
+        for (var i = 0; i < profilesID.length; ++i) {
+            var x = await Profile.findById(profilesID[i])
+            profiles.push({ID: x._id, username: x.username, fullName: x.fullName})
+        }
+        return { status: 'Success', reason: 'reason', details: { profiles }, message: 'Friends REQUEST found' };
+    }catch ( error ) {
+
+        //      Return Side
+                return { status: 'Error', reason: null, details: error.toString(), message: 'Error during the proccess' };
+        
+            }
+
+    
+}
+
+
 const getFriends = async ( myProfileID ) => {
     console.log(myProfileID);
     try {
@@ -35,6 +59,9 @@ const getFriends = async ( myProfileID ) => {
     
 
 }
+
+
+module.exports.getFriendRequestInProccess = getFriendRequestInProccess
 module.exports.getFriends = getFriends
 
 const purifyFriends = async ( profiles ) => {

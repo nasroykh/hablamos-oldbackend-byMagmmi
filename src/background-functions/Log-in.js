@@ -26,7 +26,7 @@ const logIn = async ( email, password, mySocketID ) => {
             const token = await generateAuthToken(account._id);
 
 //          Add this token to the account tokens
-            account.tokens = account.tokens.concat({ token });
+            account.tokens = account.tokens.concat(token);
             
 //          Add the received webSocketID to the webSocketIDs
             account.webSocketID = mySocketID;

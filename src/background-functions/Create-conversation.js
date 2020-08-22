@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs')
 
 const isConversationAlreadyCreated = async (myProfile, hisProfile) => {
     for ( i = 0; i < myProfile.friendsWithConversation.length; i++) {
-        if (myProfile.friendsWithConversation[i].ID == hisProfile._id) {
+        if (myProfile.friendsWithConversation[i] == hisProfile._id) {
             return true
         }       
 
@@ -18,7 +18,7 @@ const isConversationAlreadyCreated = async (myProfile, hisProfile) => {
 
 const areFriends = async (myProfile, hisProfile) => {
     for ( i = 0; i < myProfile.friends.length; i++) {
-        if (myProfile.friends[i].ID == hisProfile._id) {
+        if (myProfile.friends[i] == hisProfile._id) {
             return true
         }       
 
@@ -28,11 +28,11 @@ const areFriends = async (myProfile, hisProfile) => {
 
 const updateProfiles = async (myProfile, hisProfile, conversationID) => {
 
-    myProfile.friendsWithConversation =  myProfile.friendsWithConversation.concat( { ID: hisProfile._id } )
-    hisProfile.friendsWithConversation =  hisProfile.friendsWithConversation.concat( { ID: myProfile._id } )
+    myProfile.friendsWithConversation =  myProfile.friendsWithConversation.concat(hisProfile._id)
+    hisProfile.friendsWithConversation =  hisProfile.friendsWithConversation.concat(myProfile._id)
 
-    myProfile.conversations =  myProfile.conversations.concat( { ID: conversationID } )
-    hisProfile.conversations =  hisProfile.conversations.concat( { ID: conversationID } )
+    myProfile.conversations =  myProfile.conversations.concat(conversationID)
+    hisProfile.conversations =  hisProfile.conversations.concat(conversationID)
 
     myProfile.save()
     hisProfile.save()
@@ -132,10 +132,10 @@ const getConversations = async (myProfileID) => {
         const conversationsID = myProfile.conversations
         const conversations = new Array ()
         for (let i = 0; i < conversationsID.length; i++){
-            const conversation = await Converstion.findById(conversationsID[i].ID)
+            const conversation = await Converstion.findById(conversationsID[i])
             conversations.push(conversation)
         }
-
+        
         const purifiedInfo = new Array ()
         for (let i = 0; i < conversations.length; ++i) {
             console.log(conversations.length);
@@ -162,7 +162,7 @@ const getConversations = async (myProfileID) => {
 
 
     } catch (error) {
-        return { status: 'Error', reason: null, details: error, message: 'Error during the process' }
+        return { status: 'Error', reason: null, details: error.toString(), message: 'Error during the process' }
         
     }
 

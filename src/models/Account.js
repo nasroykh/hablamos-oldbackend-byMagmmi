@@ -12,10 +12,8 @@ const Account = mongoose.model('Account', {
         required: true
     },
     tokens: [{
-        token: {
-            type: String,
-            required: true
-        },
+        type: String,
+        required: true
     }],
     webSocketID: {
             type: String,

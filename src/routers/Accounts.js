@@ -12,7 +12,26 @@ const router = new express.Router()
 // Status: 'Error', Reason: '.......', Details: '.....', Message: '......'
 
 
+/***
+ * 
+ * 
+`  {
 
+    "account": {
+
+        "email": "Magmmi.pl@protonmail.com",
+        "password": "password"
+
+    },
+
+    "profile": {
+        "fullName": "Benfodda"
+    }
+
+ }`
+
+ * 
+ */
 router.post('/SignUp', upload.single('profilePicture'), async function (req, res) {
 
 

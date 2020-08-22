@@ -16,7 +16,6 @@ const Profile = mongoose.model('Profile', {
         type: String,
         required: false,
         trim: true,
-
     },
     SecondsName: {
         type: String,
@@ -39,35 +38,24 @@ const Profile = mongoose.model('Profile', {
         required: false
     },
     conversations: [{
-        ID: {
-            type: String,
-            required: true
-        }
+        type: String,
+        required: true
     }],
     sentInvitation: [{
-        ID: {
         type: String,
         required: true
-        }
     }],
     receivedInvitation: [{
-        ID: {
         type: String,
         required: true
-        }
     }],
-    
     friends: [{
-        ID: {
-            type: String,
-            required: true
-        }
+        type: String,
+        required: true
     }],
     friendsWithConversation: [{
-        ID: {
-            type: String,
-            required: true
-        }
+        type: String,
+        required: true
     }],
     accountID: {
         

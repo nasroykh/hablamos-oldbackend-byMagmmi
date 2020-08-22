@@ -25,8 +25,13 @@ router.post('/openConversation', async function (req, res) {
 router.post('/sendMessage', async function (req, res) {
 
     try {
-        await sendMessage(req.body.message, req.body.senderID, req.body.conversationID)
-        res.send('hahaha')
+        const { status, reason, details, message } = await sendMessage(req.body.message, req.body.senderID, req.body.conversationID)
+        res.send({ 
+            Status: status, 
+            Reason: reason, 
+            Details: details, 
+            Message: message
+        });
 
     } catch (error) {
         res.send(error)

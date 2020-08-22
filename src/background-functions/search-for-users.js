@@ -13,7 +13,7 @@ const searchForUsers = async ( fragmentWords ) => {
         const filteredProfiles = await filterProfiles(profiles, fragmentWords)
 
 //      If their is no profiles after filtering them
-        if (filteredProfiles.length === 0) 
+        if (filteredProfiles.length === 0)
             return { status: 'Failure', reason: null, details: null, message: 'No users found' };
         
 //      Purify the filtered profiles
