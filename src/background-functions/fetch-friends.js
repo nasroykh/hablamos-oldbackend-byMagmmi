@@ -21,26 +21,24 @@ const getFriendRequestInProccess = async ( myProfileID ) => {
                 return { status: 'Error', reason: null, details: error.toString(), message: 'Error during the proccess' };
         
             }
-
     
 }
 
 
 const getFriends = async ( myProfileID ) => {
-    console.log(myProfileID);
     try {
 
 //      Store all profiles
         const myProfile = await Profile.findById(myProfileID)
+        console.log(myProfile);
 //      If their is no profiles after filtering them
         if (myProfile.friends.length === 0) 
             return { status: 'Failure', reason: null, details: null, message: 'No friends found' };
         
         
         let friendsProfile = new Array()
-
         for (let i = 0; i < myProfile.friends.length; i++) {
-            const friendProfile = await Profile.findById(myProfile.friends[i].ID)
+            const friendProfile = await Profile.findById(myProfile.friends[i])
             friendsProfile.push(friendProfile)
         }
         friendsProfile = await purifyFriends(friendsProfile)

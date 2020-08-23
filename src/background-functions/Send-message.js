@@ -29,6 +29,8 @@ const sendMessage = async ( message, senderID, conversationID ) => {
                 await getPeer_BySocketID(account.webSocketID).emit('sendMessage', conversationID, newMessage)
             }
         }
+        return { status: 'Success', reason: 'reason', details: { newMessage }, message: 'Friends found' };
+
         
     } catch (error) {
         console.log(error);
