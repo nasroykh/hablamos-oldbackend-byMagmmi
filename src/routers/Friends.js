@@ -3,6 +3,7 @@ const router = new express.Router()
 const { searchForUsers } = require('../background-functions/search-for-users')
 const { addFriend, removeFriend, sendInvitation } = require('../background-functions/add-user-to-friend-list')
 const { getFriends, getFriendRequestInProccess } = require('../background-functions/fetch-friends')
+const { auth } = require('../middleware/Log-in-Auth')
 
 // Status: 'Success', Reason: '.......', Details: '.....', Message: '......'
 // Status: 'Failure', Reason: '.......', Details: '.....', Message: '......'
@@ -58,7 +59,7 @@ router.post('/removeFriend', async function (req, res) {
 
 
 
-router.post('/findUser', async function (req, res) {
+router.post('/findUser', auth ,async function (req, res) {
 
     const { status, reason, details, message } =  await searchForUsers(req.body.word)
 

@@ -1,6 +1,7 @@
 const express = require('express')
 const { signUp, uploadProfilePicture } = require('../background-functions/Sign-up')
 const { logIn } = require('../background-functions/Log-in')
+const { logOut } = require('../background-functions/Log-out')
 const multer  = require('multer')
 const upload = multer({dest: 'images', storage: multer.memoryStorage()});
 
@@ -79,6 +80,20 @@ router.post('/LogIn', async function (req, res) {
     
 });
 
+
+router.post('/LogOut', async function (req, res) {
+    //  We store returned values from the login function
+        const { status, reason, details, message } = await logOut( req.body.account )
+        
+    //  We send those values to the client IF their is not error throwen during the logIn() process
+        res.send({ 
+            Status: status, 
+            Reason: reason, 
+            Details: details, 
+            Message: message
+        });
+        
+    });
 
 
 module.exports = router;

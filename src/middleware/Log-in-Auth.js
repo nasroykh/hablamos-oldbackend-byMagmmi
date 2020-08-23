@@ -1,10 +1,22 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Account = require("../models/Account")
 
 
-const logInAuth = async (rea, res, next) => {
-    
+const encryptionKey = 'Nasro will soon quit algeria'
+
+const auth = async (req, res, next) => {
+    const token = req.header('Authorization').replace('Bearer ', '')
+
+    const accountID = jwt.verify(token, encryptionKey)
+    console.log(accountID);
+    const account = await Account.findById(accountID)
+    req.account = account
+    console.log(req.account);
+    next()
+
+
 }
 
 
-module.exports.logInAuth = logInAuth
+module.exports.auth = auth
