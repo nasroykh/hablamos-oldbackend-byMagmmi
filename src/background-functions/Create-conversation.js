@@ -51,9 +51,9 @@ const openConversation = async ( myProfileID, hisProfileID ) => {
 
         if (await isConversationAlreadyCreated(myProfile, hisProfile)) {
 
-            const messagesID = await getMessagesID(myProfile, hisProfile)
+            const {messagesID, conversationID} = await getMessagesID(myProfile, hisProfile)
             const messages = await Message.find( {_id: messagesID } )
-            return { status: 'Success', reason: null, details: messages, message: 'Conversation Opened' }
+            return { status: 'Success', reason: null, details: {messages, conversationID}, message: 'Conversation Opened' }
 
         }
         
@@ -92,7 +92,7 @@ const getMessagesID = async (myProfile, hisProfile) => {
 
     console.log(conversation);
 
-    return conversation.MessagesID
+    return {messagesID: conversation.MessagesID, conversationID: conversation._id}
 }
 
 const getMessages = async (conversation) => {
