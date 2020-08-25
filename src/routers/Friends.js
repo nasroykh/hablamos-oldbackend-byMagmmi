@@ -14,7 +14,7 @@ const { auth } = require('../middleware/Log-in-Auth')
  * 
  * 
  */
-router.post('/sendInvitation', async function (req, res) {
+router.post('/sendInvitation', auth, async function (req, res) {
     console.log(req.body);
     const { status, reason, details, message } =  await sendInvitation(req.body.myProfileID, req.body.hisProfileID)
     
@@ -29,7 +29,7 @@ router.post('/sendInvitation', async function (req, res) {
 })
 
 
-router.post('/addFriend', async function (req, res) {
+router.post('/addFriend', auth, async function (req, res) {
 
     const { status, reason, details, message } =  await addFriend(req.body.myProfileID, req.body.hisProfileID)
     
@@ -43,7 +43,7 @@ router.post('/addFriend', async function (req, res) {
     
 })
 
-router.post('/removeFriend', async function (req, res) {
+router.post('/removeFriend', auth, async function (req, res) {
 
     const { status, reason, details, message } =  await removeFriend(req.body.myProfileID, req.body.hisProfileID)
     
@@ -59,7 +59,7 @@ router.post('/removeFriend', async function (req, res) {
 
 
 
-router.post('/findUser', auth ,async function (req, res) {
+router.post('/findUser' , auth, async function (req, res) {
 
     const { status, reason, details, message } =  await searchForUsers(req.body.word)
 
@@ -75,7 +75,7 @@ router.post('/findUser', auth ,async function (req, res) {
 })
 
 
-router.post('/fetchFriends', async function (req, res) {
+router.post('/fetchFriends', auth, async function (req, res) {
 
     const { status, reason, details, message } =  await getFriends(req.body.myProfileID)
     
@@ -89,7 +89,7 @@ router.post('/fetchFriends', async function (req, res) {
     
 })
 
-router.post('/fetchFriendsRequest', async function (req, res) {
+router.post('/fetchFriendsRequest', auth, async function (req, res) {
     const { status, reason, details, message } =  await     getFriendRequestInProccess(req.body.myProfileID)
     
     //  We send those values to the client IF their is not error throwen during the logIn() process

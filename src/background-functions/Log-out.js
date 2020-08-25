@@ -8,8 +8,10 @@ const Profile = require("../models/Profile");
 const logOut = async ( account ) => {
 
     try {
+        
         account.webSocketID = undefined
         await account.save()
+
         return { status: 'Success', reason: 'reason', details: { account }, message: 'log out' };
 
 

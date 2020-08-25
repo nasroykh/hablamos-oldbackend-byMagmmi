@@ -2,12 +2,13 @@ const express = require('express')
 const router = new express.Router()
 const { openConversation, getConversations } = require('../background-functions/Create-conversation')
 const { sendMessage } = require('../background-functions/Send-message')
+const { auth } = require('../middleware/Log-in-Auth')
 
 // Status: 'Success', Reason: '.......', Details: '.....', Message: '......'
 // Status: 'Failure', Reason: '.......', Details: '.....', Message: '......'
 // Status: 'Error', Reason: '.......', Details: '.....', Message: '......'
 
-router.post('/openConversation', async function (req, res) {
+router.post('/openConversation', auth, async function (req, res) {
     console.log(req.body);
 //  We store returned values from the createConversation function
     const { status, reason, details, message } = await openConversation(req.body.myProfileID, req.body.hisProfileID)
@@ -22,7 +23,7 @@ router.post('/openConversation', async function (req, res) {
         
 })
 
-router.post('/sendMessage', async function (req, res) {
+router.post('/sendMessage', auth, async function (req, res) {
 
     try {
         const { status, reason, details, message } = await sendMessage(req.body.message, req.body.senderID, req.body.conversationID)
@@ -41,7 +42,7 @@ router.post('/sendMessage', async function (req, res) {
 
 })
 
-router.post('/fetchConversation', async function (req, res) {
+router.post('/fetchConversation', auth, async function (req, res) {
   
         const { status, reason, details, message } =  await getConversations(req.body.myProfileID)
     res.send({ 
