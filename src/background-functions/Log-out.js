@@ -9,7 +9,9 @@ const logOut = async ( account ) => {
 
     try {
         account.webSocketID = undefined
-        account.save()
+        await account.save()
+        return { status: 'Success', reason: 'reason', details: { account }, message: 'log out' };
+
 
     } catch (error) {
         return { status: 'Error', reason: null, details: error.toString(), message: 'Error during the proccess' };

@@ -52,7 +52,7 @@ const logIn = async ( email, password, mySocketID ) => {
 }
 
 const generateAuthToken = async ( _id ) => {
-    return jwt.sign( { _id }, 'Nasro will soon quit algeria', { expiresIn: "100 s" }  )
+    return jwt.sign( { _id }, 'Nasro will soon quit algeria', { expiresIn: "1000 s" }  )
 }
 
 module.exports.logIn = logIn;

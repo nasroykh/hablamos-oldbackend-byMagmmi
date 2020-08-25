@@ -12,7 +12,6 @@ const auth = async (req, res, next) => {
     console.log(accountID);
     const account = await Account.findById(accountID)
     req.account = account
-    console.log(req.account);
     next()
 
 
