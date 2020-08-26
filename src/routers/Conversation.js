@@ -9,7 +9,6 @@ const { auth } = require('../middleware/Log-in-Auth')
 // Status: 'Error', Reason: '.......', Details: '.....', Message: '......'
 
 router.post('/openConversation', auth, async function (req, res) {
-    console.log(req.body);
 //  We store returned values from the createConversation function
     const { status, reason, details, message } = await openConversation(req.body.myProfileID, req.body.hisProfileID)
     

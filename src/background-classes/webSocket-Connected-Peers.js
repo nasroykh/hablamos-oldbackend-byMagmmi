@@ -37,7 +37,7 @@ const getPeer_BySocketID = (socketID) => {
             return connectedPeers[i]
         }
     }
-
+    return null
 }
 
 

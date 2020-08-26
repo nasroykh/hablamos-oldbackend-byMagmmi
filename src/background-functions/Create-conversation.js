@@ -4,7 +4,7 @@ const Profile = require("../models/Profile")
 const Message = require("../models/Message")
 const Converstion = require("../models/Conversation")
 const bcrypt = require('bcryptjs')
-
+var colors = require('colors');
 
 const isConversationAlreadyCreated = async (myProfile, hisProfile) => {
     for ( i = 0; i < myProfile.friendsWithConversation.length; i++) {
@@ -64,15 +64,13 @@ const openConversation = async ( myProfileID, hisProfileID ) => {
 //      Store a new {mongooseObject: Conversation} with provided participants
         const conversation = new Converstion( { participants: [ myProfile._id, hisProfile._id ] } )
 
-        
         updateProfiles(myProfile, hisProfile, conversation._id)
 
 //      Save the conversation
         await conversation.save()
 
 
-
-        const messagesID = await getMessagesID(myProfile, hisProfile)
+        const {messagesID, conversationID} = await getMessagesID(myProfile, hisProfile)
         const messages = await Message.find( {_id: messagesID } )
         return { status: 'Success', reason: null, details: messages, message: 'Conversation Created' }
 
@@ -88,16 +86,16 @@ const openConversation = async ( myProfileID, hisProfileID ) => {
 }
 
 const getMessagesID = async (myProfile, hisProfile) => {
-    const conversation = await Converstion.findOne( { participants : [ myProfile._id, hisProfile._id ] })
-
-    console.log(conversation);
+    let conversation = await Converstion.findOne( { participants : [ myProfile._id, hisProfile._id ] }) 
+    if (conversation == null || conversation == undefined || conversation.length == 0) {
+        conversation = await Converstion.findOne( { participants : [ hisProfile._id, myProfile._id] })
+    }
 
     return {messagesID: conversation.MessagesID, conversationID: conversation._id}
 }
 
 const getMessages = async (conversation) => {
     const messagesID = conversations.MessagesID
-    console.log(messagesID);
 }
 
 
@@ -138,9 +136,7 @@ const getConversations = async (myProfileID) => {
         
         const purifiedInfo = new Array ()
         for (let i = 0; i < conversations.length; ++i) {
-            console.log(conversations.length);
             for (let j = 0; j < conversations[i].participants.length; ++j) {
-                console.log("This: ", conversations[i].participants[j], " != ", myProfileID);
             
                 
                 if (conversations[i].participants[j] != myProfileID) {
@@ -149,9 +145,7 @@ const getConversations = async (myProfileID) => {
                     const lastMessageID = conversations[i].MessagesID[messageSize - 1]
                     const lastMessage = await Message.findById(lastMessageID)
                     const profile = await Profile.findById(profileID)
-                    console.log("profileID: ", profileID);
-                    console.log("messageSize: ", messageSize);
-                    console.log("lastMessage: ", lastMessage);
+       
                     purifiedInfo.push( {_id: profile._id, username: profile.username, fullName: profile.fullName, lastMessage } )
                     
                 }

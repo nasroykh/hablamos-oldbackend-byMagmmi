@@ -7,7 +7,6 @@ const Profile = require("../models/Profile")
 const getFriendRequestInProccess = async ( myProfileID ) => {
     try {
         const profile = await Profile.findById(myProfileID);
-        console.log(profile);
         const profilesID = profile.receivedInvitation
         const profiles = new Array()
         for (var i = 0; i < profilesID.length; ++i) {
@@ -30,7 +29,6 @@ const getFriends = async ( myProfileID ) => {
 
 //      Store all profiles
         const myProfile = await Profile.findById(myProfileID)
-        console.log(myProfile);
 //      If their is no profiles after filtering them
         if (myProfile.friends.length === 0) 
             return { status: 'Failure', reason: null, details: null, message: 'No friends found' };

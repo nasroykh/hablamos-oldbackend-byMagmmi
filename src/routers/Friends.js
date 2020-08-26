@@ -15,7 +15,6 @@ const { auth } = require('../middleware/Log-in-Auth')
  * 
  */
 router.post('/sendInvitation', auth, async function (req, res) {
-    console.log(req.body);
     const { status, reason, details, message } =  await sendInvitation(req.body.myProfileID, req.body.hisProfileID)
     
 //  We send those values to the client IF their is not error throwen during the logIn() process

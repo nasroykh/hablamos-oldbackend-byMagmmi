@@ -32,8 +32,7 @@ const sendInvitation = async (myProfileID, hisProfileID ) => {
 
         const myAccount = await Account.findOne( { profile: myProfileID } )
         const hisAccount = await Account.findOne( { profile: hisProfileID } )
-        console.log('myAccount.webSocketID: ', myAccount.webSocketID);
-        console.log(hisAccount.webSocketID);
+
 
 
         // if (hisAccount.webSocketID != undefined) {
@@ -102,7 +101,6 @@ const addFriend = async (myProfileID, hisProfileID ) => {
 
         console.log('hisProfile.webSocketID: ', hisProfile.webSocketID);
         if (hisProfile.webSocketID != undefined) {
-            console.log(hisProfile.webSocketID);
             await getPeer_BySocketID(hisProfile.webSocketID).emit('notif')
         }
 

@@ -25,7 +25,12 @@ const sendMessage = async ( message, senderID, conversationID ) => {
         for (let i = 0; i < profilesID.length; i++) {
             const account = await Account.findOne({profile: profilesID[i]})
             if (account.webSocketID != undefined) {
-                console.log(account.webSocketID);
+                // const web = account.webSocketID
+                console.log('account.webSocketID: '.red , account.webSocketID);
+                const x = await getPeer_BySocketID(account.webSocketID)
+                if (x == null) {
+                    console.log('null'.red);
+                }
                 await getPeer_BySocketID(account.webSocketID).emit('sendMessage', conversationID, newMessage)
             }
         }

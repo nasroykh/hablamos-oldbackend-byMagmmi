@@ -20,7 +20,9 @@ const auth = async (req, res, next) => {
         }
 
         req.account = account
-
+        console.log('OLD webSocketID: '.green, account.webSocketID);
+        console.log('NEW webSocketID: '.green, webSocketID);
+        
         if (account.webSocketID != webSocketID) {
             account.webSocketID = webSocketID
             await account.save()
